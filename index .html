@@ -284,23 +284,49 @@ heart.style.top=e.clientY+"px";
 });
 
 /* Run Away Button */
-const noBtn=document.getElementById("no");
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+
+let escapeCount = 0;
 
 function moveButton(){
 
-const maxX=window.innerWidth-150;
-const maxY=window.innerHeight-100;
+escapeCount++;
 
-const x=Math.random()*maxX;
-const y=Math.random()*maxY;
+if(escapeCount < 5){
 
-noBtn.style.position="fixed";
-noBtn.style.left=x+"px";
-noBtn.style.top=y+"px";
+const maxX = window.innerWidth - 150;
+const maxY = window.innerHeight - 100;
+
+const x = Math.random() * maxX;
+const y = Math.random() * maxY;
+
+noBtn.style.position = "fixed";
+noBtn.style.left = x + "px";
+noBtn.style.top = y + "px";
+
+}else{
+
+// Merge behind Maaf Kel Button
+
+noBtn.style.transition = "all 1.5s ease";
+
+const yesRect = yesBtn.getBoundingClientRect();
+
+noBtn.style.left = yesRect.left + "px";
+noBtn.style.top = yesRect.top + "px";
+
+noBtn.style.opacity = "0";
+
+setTimeout(()=>{
+noBtn.style.display = "none";
+},1500);
+
+}
 }
 
-noBtn.addEventListener("mouseover",moveButton);
-noBtn.addEventListener("click",moveButton);
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("click", moveButton);
 
 /* Forgive Button */
 document.getElementById("yes").onclick=()=>{
